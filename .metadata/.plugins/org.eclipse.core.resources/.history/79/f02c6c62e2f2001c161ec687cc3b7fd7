@@ -1,0 +1,109 @@
+
+package com.fpj.trendeater.board.model.vo;
+
+import java.sql.Date;
+
+public class Board {
+
+	private int boardId;
+	private String boardTitle;
+	private String boardContent;
+	private Date boardCreateDate;
+	private Date boardModifyDate;
+	private int boardCount;
+	private String boardStatus;
+	private String admindId;
+	
+	public Board() {}
+
+	public Board(int boardId, String boardTitle, String boardContent, Date boardCreateDate, Date boardModifyDate,
+			int boardCount, String boardStatus, String admindId) {
+		super();
+		this.boardId = boardId;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardCreateDate = boardCreateDate;
+		this.boardModifyDate = boardModifyDate;
+		this.boardCount = boardCount;
+		this.boardStatus = boardStatus;
+		this.admindId = admindId;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [boardId=" + boardId + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+				+ ", boardCreateDate=" + boardCreateDate + ", boardModifyDate=" + boardModifyDate + ", boardCount="
+				+ boardCount + ", boardStatus=" + boardStatus + ", admindId=" + admindId + "]";
+	}
+
+	public int getBoardId() {
+		return boardId;
+	}
+
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
+	}
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+
+	public String getBoardContent() {
+		return boardContent;
+	}
+
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
+	}
+
+	public Date getBoardCreateDate() {
+		return boardCreateDate;
+	}
+
+	public void setBoardCreateDate(Date boardCreateDate) {
+		this.boardCreateDate = boardCreateDate;
+	}
+
+	public Date getBoardModifyDate() {
+		return boardModifyDate;
+	}
+
+	public void setBoardModifyDate(Date boardModifyDate) {
+		this.boardModifyDate = boardModifyDate;
+	}
+
+	public int getBoardCount() {
+		return boardCount;
+	}
+
+	public void setBoardCount(int boardCount) {
+		this.boardCount = boardCount;
+	}
+
+	public String getBoardStatus() {
+		return boardStatus;
+	}
+
+	public void setBoardStatus(String boardStatus) {
+		this.boardStatus = boardStatus;
+	}
+
+	public String getAdmindId() {
+		return admindId;
+	}
+
+	public void setAdmindId(String admindId) {
+		this.admindId = admindId;
+	}
+
+	
+	
+	
+	
+	
+}
+
