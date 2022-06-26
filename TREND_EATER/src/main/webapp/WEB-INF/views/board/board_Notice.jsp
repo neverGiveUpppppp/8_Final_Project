@@ -221,8 +221,8 @@
                         <span>검색어</span>
                         <ul>
                             <li><label><input type="checkbox">이름</label></li>
-                            <li><input type="checkbox">제목</li>
-                            <li><input type="checkbox">내용</li>
+	                        <li><label><input type="checkbox">제목</label></li>
+	                        <li><label><input type="checkbox">내용</label></li>
                         </ul>
                     </div>
                     <div class="searchBar">
