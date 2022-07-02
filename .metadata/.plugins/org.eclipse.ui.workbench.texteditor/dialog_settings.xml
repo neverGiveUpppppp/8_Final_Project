@@ -6,8 +6,15 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="tbodyContent"/>
+		<item key="selection" value="cur"/>
 		<list key="findhistory">
+			<item value="cur"/>
+			<item value="integer"/>
+			<item value="name"/>
+			<item value="button"/>
+			<item value="createDate"/>
+			<item value="noticeStatus"/>
+			<item value="page"/>
 			<item value="tbodyContent"/>
 			<item value="nickName"/>
 			<item value="adminId"/>
@@ -15,6 +22,8 @@
 			<item value="boardId"/>
 		</list>
 		<list key="replacehistory">
+			<item value="qnacreateDate"/>
+			<item value="qnaStatus"/>
 			<item value="adminId"/>
 			<item value="boardNo"/>
 		</list>

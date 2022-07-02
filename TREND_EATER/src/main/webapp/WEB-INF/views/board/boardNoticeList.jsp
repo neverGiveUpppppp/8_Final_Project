@@ -26,7 +26,7 @@
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/76295929c4.js" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/board_notice.css">
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/boardNoticeList.css">
 	  
 
 
@@ -83,95 +83,6 @@
                 </div>
                 <br>
                 
-<%-- 
-                <!-- Pagination -->
-                <div class="pagination">
-                        <!-- [이전] -->
-                    <c:if test="${ pi.currentPage <= 1 }">
-                        <!-- [이전]  ≪  &nbsp; -->
-                        	 ≪  &nbsp;  <!-- 1페이지에서만 나오는 기호 설정. 마찬가지로 마지막페이지에서 나오는 기호도 따로 지정해줘야함 -->
-                    </c:if>
-                    <c:if test="${ pi.currentPage > 1 }">
-                        <c:url var="before" value="notice.bo">
-                            <c:param name="page" value="${ pi.currentPage - 1 }"/>
-                        </c:url>
-                        <a href="${ before }">[이전]</a> &nbsp;
-                        <a href="${ before }">≪</a> &nbsp;
-                    </c:if>
-                    
-                    <!-- 페이지 -->
-                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                        <c:if test="${ p eq pi.currentPage }">
-                            <font color="red" size="4"><b>[${ p }]</b></font>
-                        </c:if>
-                        
-                        <c:if test="${ p ne pi.currentPage }">
-                            <c:url var="pagination" value="notice.bo">     <!-- 현재페이지가 지워지는 문제 화면에서  -->
-                                <c:param name="page" value="${ p }"/>
-                            </c:url>
-                            <a href="${ pagination }">${ p }</a> &nbsp;
-                        </c:if>
-                    </c:forEach>
-                    
-                    <!-- [다음] -->
-                    <c:if test="${ pi.currentPage >= pi.maxPage }">
-                        <!-- [다음]  ≫ -->
-                     	 ≫		<!-- 마지막 페이지에서만 나오는 기호 설정. 마찬가지로 첫페이지에서 나오는 기호도 따로 지정해줘야함 -->
-                    </c:if>
-                    <c:if test="${ pi.currentPage < pi.maxPage }">
-                        <c:url var="after" value="notice.bo">
-                            <c:param name="page" value="${ pi.currentPage + 1 }"/>
-                        </c:url> 
-                        <a href="${ after }">[다음]</a>
-                        <a href="${ after }"> ≫ </a>
-                    </c:if>        
-                </div>
-				<!-- UI kit pagination -->
-				<ul class="uk-pagination uk-flex-center" uk-margin>
-					<!-- [이전] -->
-					<c:if test="${ pi.currentPage <= 1 }">
-						 <li><a href="notice.bo"><span uk-pagination-previous></span></a></li>
-                    </c:if>
-			   	 	<c:if test="${ pi.currentPage > 1 }">
-                        <c:url var="before" value="notice.bo">
-                            <c:param name="page" value="${ pi.currentPage - 1 }"/>
-                        </c:url>
-                        <li><a href="${ before }" name="page" ><span uk-pagination-previous></span></a></li>
-                        <a href="${ before }">[이전]</a> &nbsp;
-                    </c:if>
-                    
-                    <!-- 페이지 -->
-                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                        <c:if test="${ p ne pi.currentPage }">
-                            <c:url var="pagination" value="notice.bo">
-                                <c:param name="page" value="${ p }"/>
-                            </c:url>
-                            <li><a href="${ pagination }">${ p }</a></li> <!-- 2부터 시작해서 -1해줌 -->
-                        </c:if>
-                    </c:forEach>
-             
-                    
-                    <!-- [다음] -->
-                    <c:if test="${ pi.currentPage >= pi.maxPage }">
-                        <li><a href="notice.bo"><span uk-pagination-next></span></a></li>
-                    </c:if>
-                    <c:if test="${ pi.currentPage < pi.maxPage }">
-                        <c:url var="after" value="notice.bo">
-                            <c:param name="page" value="${ pi.currentPage + 1 }"/>
-                        </c:url> 
-                        <li><a href="${ after }"><span uk-pagination-next></span></a></li>
-                    </c:if>  
-                          
-				    <!-- <li><a href="notice.bo">1</a></li>
-				    <li class="uk-disabled"><span>...</span></li>
-				    <li><a href="#">5</a></li>
-				    <li><a href="#">6</a></li>
-				    <li class="uk-active"><span>7</span></li>
-				    <li><a href="#">8</a></li>
-				    <li><a href="#"><span uk-pagination-next></span></a></li> -->
-				</ul>
-       --%> 
-       
        				
  
 		<!--UI kit pagination -->
@@ -206,7 +117,7 @@
                <li><a href="#"><span uk-pagination-next></span></a></li> &nbsp;
             </c:if>
             <c:if test="${ pi.currentPage < pi.maxPage }">
-               <c:url var="after" value="notice.bo">
+               <c:url var="after" value="noticeList.bo">
                   <c:param name="page" value="${ pi.currentPage + 1 }"/>
                </c:url> 
                <li><a href="${ after }"><span uk-pagination-next></span></a></li>
@@ -238,7 +149,6 @@
     
 
     <script>
-	// 테이블 중에서 find 후손을 찾겠다. 마우스가 들어가있으면 그 tb에서 하나위로 올라가고(tr까지) tr에 대해서 백그라운드를 변경 
 		$('.tbodyContent').find("td").mouseenter(function() {
 			$(this).parent().css({'background':'#FCD2D1', 'color': 'white', 'cursor': 'pointer' });
 		}).mouseout(function(){

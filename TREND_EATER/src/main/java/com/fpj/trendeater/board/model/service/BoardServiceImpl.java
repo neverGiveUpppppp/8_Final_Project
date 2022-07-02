@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fpj.trendeater.board.model.dao.BoardDAO;
 import com.fpj.trendeater.board.model.vo.Board;
+import com.fpj.trendeater.board.model.vo.BoardQnA;
 import com.fpj.trendeater.board.model.vo.PageInfo;
 import com.fpj.trendeater.board.model.vo.Reply;
 
@@ -36,12 +37,24 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Board> getBoardList(PageInfo pi) {
 		return bDAO.getBoardList(sqlSession, pi);
 	}
+	// boardQna 페이징처리1 :총게시물수 가져오기
+	@Override
+	public int getQnaListCount() {
+		return bDAO.getQnaListCount(sqlSession);
+	}
 
+	// boardQna 페이징처리2 : 필요한 게시판 가져오기
+	@Override
+	public ArrayList<BoardQnA> getBoardQnaList(PageInfo pi) {
+		return bDAO.getBoardQnaList(sqlSession, pi);
+	}
 
+/***********************************************************************/
+	
 	// 게시판 글쓰기
 	@Override
-	public int insertBoard(Board b) {
-		return bDAO.insertBoard(sqlSession, b);
+	public int insertBoardQna(BoardQnA b) {
+		return bDAO.insertBoardQna(sqlSession, b);
 	}
 
 
@@ -57,11 +70,13 @@ public class BoardServiceImpl implements BoardService {
       return b;
    }
 
-//   	// 게시판 수정 + 파일수정
-//	@Override
-//	public int updateBoard(Board b) {
-//		return bDAO.updateBoard(sqlSession, b);
-//	}
+
+
+   	// 게시판 수정 + 파일수정
+	@Override
+	public int updateBoardQna(BoardQnA b) {
+		return bDAO.updateBoardQna(sqlSession, b);
+	}
 //
 //	// 게시글 삭제 + 파일삭제
 //	@Override

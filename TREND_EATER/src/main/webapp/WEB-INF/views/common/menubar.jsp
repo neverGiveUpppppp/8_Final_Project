@@ -114,8 +114,8 @@
                                    <c:if test = "${loginUser != null}"> 
                                     <li><a href="myPageform.me">마이페이지</a></li>
                                     </c:if>
-                                    <li><a href="notice.bo">공지사항</a></li>
-                                    <li><a href="qna.bo">문의사항</a></li>
+                                    <li><a href="noticeList.bo">공지사항</a></li>
+                                    <li><a href="boardQna.bo">문의사항</a></li>
                                 </ul>
                             </div>
                         </li>

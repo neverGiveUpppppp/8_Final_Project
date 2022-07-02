@@ -2,4 +2,5 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.fpj.trendeater.board.model.vo.BoardQnA"/>
 </qualifiedTypeNameHistroy>

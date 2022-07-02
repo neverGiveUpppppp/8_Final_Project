@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fpj.trendeater.board.model.vo.Board;
+import com.fpj.trendeater.board.model.vo.BoardQnA;
 import com.fpj.trendeater.board.model.vo.PageInfo;
 import com.fpj.trendeater.board.model.vo.Reply;
 
@@ -15,7 +16,7 @@ import com.fpj.trendeater.board.model.vo.Reply;
 public class BoardDAO {
 
 	
-/******************** 페이징처리 ********************/ 	
+/******************** 공지사항 조회  + 페이징처리 ********************/ 	
 	
 	// 페이징처리1 :총게시물수 가져오기
 	public int getListCount(SqlSessionTemplate sqlSession) {
@@ -72,14 +73,44 @@ public class BoardDAO {
 			 
 			 */
 	
-
 	
-/********************* 게시판 글쓰기 *********************/ 
+/*************************** QnA 조회 ***************************/ 	
 	
-
-	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.insert("boardMapper.insertBoard",b);
+	public int getQnaListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.getQnaListCount");
 	}
+
+	public ArrayList<BoardQnA> getBoardQnaList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.getBoardQnaList", null, rowBounds);
+	}
+
+
+	
+/*************************** QnA 글쓰기 ***************************/
+	
+	public int insertBoardQna(SqlSessionTemplate sqlSession, BoardQnA b) {
+		return sqlSession.insert("boardMapper.insertBoardQna",b);
+	}
+	
+	
+/*************************** QnA 수정 ***************************/ 
+	
+
+	public int updateBoardQna(SqlSessionTemplate sqlSession, BoardQnA b) {
+		return sqlSession.update("boardMapper.updateBoardQna",b);
+	}
+	
+	
+/*************************** ? ***************************/ 
+	
+	
+	
+	
+	
+/*************************** 문의사항 글쓰기 ***************************/ 
+	
 
 //	SqlSessionTemplate 대신 sqlsession만 썼다는데 웹페이지가 잘돌아갔다. why?
 //			
@@ -95,10 +126,11 @@ public class BoardDAO {
 	public Board selectBoard(SqlSessionTemplate sqlSession, int bId) {
 		return sqlSession.selectOne("boardMapper.selectBoard",bId);
 	}
+	
+	
 
-	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.updateBoard",b);
-	}
+	
+/*************************** ? ***************************/ 	
 
 	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {	// update status='N'도 가능 
 		return sqlSession.delete("boardMapper.deleteBoard",bId);
@@ -117,6 +149,8 @@ public class BoardDAO {
 	public ArrayList<Board> topList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("boardMapper.topList");
 	}
+
+
 
 	
 	
