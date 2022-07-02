@@ -67,7 +67,13 @@
 		values(seq_qnaid.nextval, #{qnaTitle}, #{qnaContent}, sysdate, default, default, default, default, default)
 	</insert>
 	
-
+<!-- QnA 수정 -->
+	<update id="updateBoardQna">
+		update qna
+		set qna_title = #{qnaTitle}
+		and qna_content = #{qnaContent}
+		where email_id = #{eId}
+	</update>
  	
 
 <!-- 게시판 상세보기+ 파일업로드	 -->

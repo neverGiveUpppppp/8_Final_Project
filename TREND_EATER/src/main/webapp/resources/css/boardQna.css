@@ -166,14 +166,14 @@ tbody td:nth-last-child(2){
     background-color: #FE8F8F;
     border: 1px solid #FF5C58;
     color:#fff;
-    
-    box-shadow:1px 1px 1px #FE8F8F;
-	transition-duration:0.2s;
+
 }
 .submitButton > button:hover{
 	outline: none;
     cursor : pointer;
 	background-color: #FCD2D1;
+    box-shadow:1px 1px 1px #FE8F8F;
+	transition-duration:0.2s;
 
 }
 .submitButton > button:active{

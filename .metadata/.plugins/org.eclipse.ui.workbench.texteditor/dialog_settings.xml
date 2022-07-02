@@ -9,6 +9,7 @@
 		<item key="selection" value="cur"/>
 		<list key="findhistory">
 			<item value="cur"/>
+			<item value="cour"/>
 			<item value="integer"/>
 			<item value="name"/>
 			<item value="button"/>

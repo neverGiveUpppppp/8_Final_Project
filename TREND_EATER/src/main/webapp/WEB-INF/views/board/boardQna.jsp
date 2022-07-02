@@ -103,9 +103,9 @@ pageEncoding="UTF-8"%>
 	                        </div>  
 	                    </ul>
 	                    <div class="QnaToggleOpen_Button">
-	                        <button type="submit" onclick="location.href='boardQnaUpdateForm.bo'">수정</button>
-	                        <button type="submit" onclick="location.href='boardQnaDeleteForm.bo'">삭제</button>
-	                    </div><br>
+	                        <button type="submit" name="page" value="${pi.currentPage}" onclick="location.href='boardQnaUpdateForm.bo?page='+ ${pi.currentPage}">수정</button>
+	                        <button type="submit" name="page" value="${pi.currentPage}" onclick="location.href='boardQnaDeleteForm.bo'">삭제</button>
+	                    </div><br>																<!-- location.href = 'bdetail.bo?bId=' + bId + "&page=" + ${pi.currentPage}; -->
 	                </div>
 	            </details>  
             </c:forEach>

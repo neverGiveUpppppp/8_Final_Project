@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="0"/>
 	<list key="CommitDialog.authorValues">
 		<item value="neverGiveUpppppp &lt;csy6219@naver.com&gt;"/>
 	</list>
 	<list key="CommitDialog.committerValues">
 		<item value="neverGiveUpppppp &lt;csy6219@naver.com&gt;"/>
+	</list>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/neverGiveUpppppp/Test_FinalProject_git.git"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
 	</list>
 	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
 		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
@@ -23,5 +32,8 @@
 			<item value="600"/>
 			<item value="400"/>
 		</list>
+	</section>
+	<section name="GitImportWizard">
+		<item key="GitProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
 	</section>
 </section>
