@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> TREND_EATER </title>
 
-<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/boardNoticeDetail.css" type="text/css">
+<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/board/boardNoticeDetail.css" type="text/css">
 
 </head>
 <body>
@@ -48,7 +48,7 @@
         </p>
     </div>
     <div class="listButton">
-    	<c:url var="blist" value="notice.bo">
+    	<c:url var="blist" value="noticeList.bo">
 			<c:param name="page" value="${ page }"/>
 		</c:url>
         <button onclick="location.href='${ blist }'">목록</button> <!-- url 지정하기 -->

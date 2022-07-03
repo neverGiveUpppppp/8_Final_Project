@@ -26,7 +26,7 @@
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/76295929c4.js" crossorigin="anonymous"></script>
 
-<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/boardNoticeList.css">
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/board/boardNoticeList.css">
 	  
 
 
@@ -92,7 +92,7 @@
                <li><a href="#"><span uk-pagination-previous></span></a></li> &nbsp;
             </c:if>
             <c:if test="${ pi.currentPage > 1 }">
-               <c:url var="before" value="notice.bo">
+               <c:url var="before" value="noticeList.bo">
                   <c:param name="page" value="${ pi.currentPage - 1 }"/>
                </c:url>
                <li><a href="${ before }"><span uk-pagination-previous></span></a></li>
@@ -105,7 +105,7 @@
                </c:if>
                
                <c:if test="${ p ne pi.currentPage }">
-                  <c:url var="pagination" value="notice.bo">
+                  <c:url var="pagination" value="noticeList.bo">
                      <c:param name="page" value="${ p }"/>
                   </c:url>
                    <li><a href="${ pagination }">${ p }</a></li>&nbsp;

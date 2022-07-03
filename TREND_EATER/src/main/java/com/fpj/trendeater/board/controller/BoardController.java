@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +24,7 @@ import com.fpj.trendeater.board.model.vo.Board;
 import com.fpj.trendeater.board.model.vo.BoardQnA;
 import com.fpj.trendeater.board.model.vo.PageInfo;
 import com.fpj.trendeater.common.Pagination;
+import com.fpj.trendeater.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -29,9 +32,9 @@ public class BoardController {
 	@Autowired
 	private BoardService bService;
 
-/********************************************** 공지사항 : 조회	 *******************************************************/
+/********************************** Notice(공지사항) : 조회 *************************************/
 
-	// 공지사항 조회 + 페이지네이션
+	// Notice 공지사항 조회 + 페이지네이션
 	@RequestMapping("noticeList.bo") // menubar.jsp의 게시판 버튼의 url주소
 	public ModelAndView boardList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
 
@@ -66,14 +69,90 @@ public class BoardController {
 		}
 		return mv;
 	}
+	
+/********************************** Notice(공지사항) : 쓰기  *************************************/	
+	// Notice 쓰기 by admin 
+	@RequestMapping("noticeWriteView.bo")
+	public String noticeWriteForm() {
+		return "noticeWriteForm";
+	}
+	@RequestMapping("noticeWriteForm.bo")
+	public String insertNotice(@ModelAttribute Board b) {
 
-/********************************************** 공지사항 : 상세보기 **************************************************/
+		int result = bService.insertNotice(b);
+ 
+		if (result > 0) {
+			return "redirect:noticeList.bo"; // 관리자 게시판으로 돌아가야함!
+		} else {
+			throw new BoardException("공지사항 등록에 실패하였습니다.");
+		}
+	}
+
+	
+/********************************** Notice(공지사항) : 수정  *************************************/	
+	// Notice 수정
+	@RequestMapping(value="noticeUpdate.bo", method=RequestMethod.GET)
+	public String noticeUpdateForm() {
+		return "noticeUpdateForm";
+	}
+	
+	@RequestMapping(value="noticeUpdate.bo", method = RequestMethod.POST) 
+	public String updateNotice(@ModelAttribute Board b, @RequestParam("page") int page,
+									HttpSession session) {  
+		
+		String id = ((Admin)session.getAttribute("loginUser")).getId();
+		b.setAdminId(id);
+		
+		int result = bService.updateNotice(b); 
+
+		if(result > 0) {
+			//model.addAttribute("board", b)...;
+			// 보드 보낼 필요없음. 화면 상세보기 페이지로 가기 때문에 상세보기 페이지로 가는 bdetail.bo 이용하면 됨
+			//return "redirect:bdetail.bo?bId=" + b.getBoardId() + "&page=" + page;
+			
+			// 리다이렉트인데 데이터보존됨
+//			model.addAttribute("bId",b.getBoardId());
+//			model.addAttribute("page",page);
+			return "redirect:boardQna.bo";
+			
+		} else {
+			throw new BoardException("공지사항 수정에 실패하였습니다.");
+		}
+	}
+	
+	
+	
+/********************************** Notice(공지사항) : 삭제  *************************************/	
+	// Notice 삭제
+	@RequestMapping(value="noticeDelete.bo", method=RequestMethod.POST)
+	public String deleteNotice(@ModelAttribute Board b, HttpSession session) {  
+			
+		
+		String id = ((Member)session.getAttribute("loginUser")).getEmail();
+		b.setAdminId(id);
+		
+		int result = bService.deleteNotice(b);
+		
+		if(result > 0) {
+			return "redirect:boardQna.bo";	// 관리자 게시판으로 돌아가야함!
+		}else {
+			throw new BoardException("공지사항 삭제에 실패하였습니다.");
+		}
+	}
+	
+	
+	
+	
+	
+/*********************************** Notice(공지사항) : 상세보기 **************************************************/
 
 	@RequestMapping("noticeDetail.bo")
 	public ModelAndView boardDetail(@RequestParam("bId") int bId, @RequestParam("page") int page, ModelAndView mv) {
 
 		Board board = bService.selectBoard(bId);
-
+		
+		System.out.println("board="+board);
+		
 		if (board != null) {
 			mv.addObject("board", board).addObject("page", page).setViewName("boardDetailView");
 		} else {
@@ -82,14 +161,11 @@ public class BoardController {
 		return mv;
 	}
 
-/********************************************** 공지사항 : 글쓰기 by 관리자	 **************************************************/
-	
-	
 	
 	
 
 /********************************************** QnA : 조회  *******************************************************/
-
+	// QnA : 조회 
 	@RequestMapping("boardQna.bo")
 	public ModelAndView qnaList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
 
@@ -101,7 +177,6 @@ public class BoardController {
 
 		// 페이징처리1 :총게시물수 가져오기
 		int listCount = bService.getQnaListCount();
-
 		// 페이징처리2 : 필요한 게시판 가져오기
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
@@ -110,7 +185,6 @@ public class BoardController {
 		System.out.println("list=" + list); // 항상 디버깅 찍어보기
 
 		if (list != null) {
-			// model과 ModelAndView 둘 중 하나 선택가능
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
 			mv.setViewName("boardQna");
@@ -122,26 +196,22 @@ public class BoardController {
 
 /********************************************** QnA : 쓰기  *******************************************************/
 
-	//
+	// QnA : 쓰기
 	@RequestMapping("boardQnaWriteView.bo")
 	public String boardQnaWriteForm() {
 		return "boardQnaWriteForm";
 	}
-
-	// 게시판 글쓰기
+	
 	@RequestMapping("boardQnaWriteForm.bo")
-	public String insertBoard(@ModelAttribute BoardQnA b) {
+	public String insertBoardQna(@ModelAttribute BoardQnA b) {
 
 		System.out.println(b);
-
-		
 //		  b.setQnaTitle("qnaTitle"); 
 //		  b.setQnaContent("qnaContent"); 세터를 따로 지정해서 값을 주었기 때문에 저 값이 저장된것
 //		  파람은 단일, 모델어트리뷰트는 복수 저장할 때 사용.
 //		  모델어트리뷰트는 뷰의 파라미터값과 vo클래스의 필드명(정확히는 세터명)이 같은 것을 매핑함.
 //		 @ModelAttribute BoardQnA b로 받아오면서 뷰의 name속성 파라미터랑 vo 클래스의 필드명(세터명)이랑 같아서 
 //		  자연스럽게 받아올 수 있었지만 세터를 새로 지정하고 거기에 "qnaTitle" 스트링값을 새로 주었기 때문에 저값이 db에 저장된 것
-
 
 		int result = bService.insertBoardQna(b);
 		System.out.println(result);
@@ -156,22 +226,21 @@ public class BoardController {
 	
 /********************************************** QnA : 수정  *******************************************************/
 	
-	
+	// QnA : 수정
 	@RequestMapping("boardQnaUpdateView.bo")
 	public String boardUpdateForm() {
 		return "boardQnaUpdateForm";
 	}
 	
 	@RequestMapping("boardQnaUpdateForm.bo") 
-	public String updateBoardQna(@ModelAttribute BoardQnA b, @RequestParam("page") int page) {  
+	public String updateBoardQna(@ModelAttribute BoardQnA b, @RequestParam("page") int page,
+									HttpSession session) {  
 		
-		// <input type="file" value="???">
-		// 파일이 실제 컴터 파일에 접근하는거라 보안상 value속성을 넣는 것을 막아두었기에 사용불가
-		
-			
+		String id = ((Member)session.getAttribute("loginUser")).getEmail();
+		b.setEmailId(id);
 		
 		int result = bService.updateBoardQna(b); 
-		// 해당글이 보드랑 페이지 가지고 있었음
+
 		if(result > 0) {
 			//model.addAttribute("board", b)...;
 			// 보드 보낼 필요없음. 화면 상세보기 페이지로 가기 때문에 상세보기 페이지로 가는 bdetail.bo 이용하면 됨
@@ -188,13 +257,24 @@ public class BoardController {
 	}
 	
 	
-	
-	
-	
 /********************************************** QnA : 삭제  *******************************************************/
 	
-	
-	
+	// QnA : 삭제
+	@RequestMapping("boardQnaDeleteForm.bo")
+	public String deleteBoard(@ModelAttribute BoardQnA b, HttpSession session) {  
+			
+		
+		String id = ((Member)session.getAttribute("loginUser")).getEmail();
+		b.setEmailId(id);
+		
+		int result = bService.deleteBoardQna(b);
+		
+		if(result > 0) {
+			return "redirect:boardQna.bo";
+		}else {
+			throw new BoardException("QnA 삭제에 실패하였습니다.");
+		}
+	}
 	
 	
 	

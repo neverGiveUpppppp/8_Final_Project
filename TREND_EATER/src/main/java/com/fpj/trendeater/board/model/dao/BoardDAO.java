@@ -16,15 +16,15 @@ import com.fpj.trendeater.board.model.vo.Reply;
 public class BoardDAO {
 
 	
-/******************** 공지사항 조회  + 페이징처리 ********************/ 	
+/********************************* notice *********************************/
 	
-	// 페이징처리1 :총게시물수 가져오기
+	// Notice 읽기(조회) - 페이징처리1 :총게시물수 가져오기
 	public int getListCount(SqlSessionTemplate sqlSession) {
 		
 		return sqlSession.selectOne("boardMapper.getListCount");
 	}
 
-	// 페이징처리2 : 원하는 게시판 번호 조회
+	// Notice 읽기(조회) - 페이징처리2 : 원하는 게시판 번호 조회
 	public ArrayList<Board> getBoardList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
 		// RowBounds관련 설명은 아래에
@@ -34,7 +34,6 @@ public class BoardDAO {
 		
 //		ArrayList<Board> list = (ArrayList)session.selectList("boardMapper.selectBoardList", null, rowBounds); // 쿼리문에 데이터 넣을만한 위치홀더가 없어서 null
 		// 전달할게 없는데 로우바운즈는 필요하니까 인자3개짜리 쓴 것
-		
 		
 		return (ArrayList)sqlSession.selectList("boardMapper.getBoardList", null, rowBounds);
 	}
@@ -73,8 +72,27 @@ public class BoardDAO {
 			 
 			 */
 	
+	// Notice 상세보기
+	public Board selectBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("boardMapper.selectBoard",bId);
+	}
 	
-/*************************** QnA 조회 ***************************/ 	
+	// Notice 쓰기
+	public int insertNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertNotice",b);
+	}
+	
+	// Notice 수정
+	public int updateNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateNotice",b);
+	}
+
+	// Notice 삭제
+	public int deleteNotice(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.deleteNotice",b);
+	}
+	
+/*************************** QnA ***************************/ 	
 	
 	public int getQnaListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("boardMapper.getQnaListCount");
@@ -86,24 +104,19 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.getBoardQnaList", null, rowBounds);
 	}
 
-
-	
-/*************************** QnA 글쓰기 ***************************/
-	
+	// QnA 쓰기
 	public int insertBoardQna(SqlSessionTemplate sqlSession, BoardQnA b) {
 		return sqlSession.insert("boardMapper.insertBoardQna",b);
 	}
 	
-	
-/*************************** QnA 수정 ***************************/ 
-	
-
+	// QnA 수정
 	public int updateBoardQna(SqlSessionTemplate sqlSession, BoardQnA b) {
 		return sqlSession.update("boardMapper.updateBoardQna",b);
 	}
-	
-	
-/*************************** ? ***************************/ 
+	// QnA 삭제
+	public int deleteBoardQna(SqlSessionTemplate sqlSession, BoardQnA b) {	// delete도 가능.  status='N'으로 변경 
+		return sqlSession.update("boardMapper.deleteBoardQna",b);
+	}
 	
 	
 	
@@ -123,18 +136,14 @@ public class BoardDAO {
 		return sqlSession.update("boardMapper.addReadCount",bId);
 	}
 
-	public Board selectBoard(SqlSessionTemplate sqlSession, int bId) {
-		return sqlSession.selectOne("boardMapper.selectBoard",bId);
-	}
+
 	
 	
 
 	
 /*************************** ? ***************************/ 	
 
-	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {	// update status='N'도 가능 
-		return sqlSession.delete("boardMapper.deleteBoard",bId);
-	}
+
 
 	// 댓글 쓰기 : insert
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
@@ -149,6 +158,9 @@ public class BoardDAO {
 	public ArrayList<Board> topList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("boardMapper.topList");
 	}
+
+
+
 
 
 

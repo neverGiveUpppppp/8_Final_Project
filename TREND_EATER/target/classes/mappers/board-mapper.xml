@@ -5,7 +5,7 @@
 
 <mapper namespace="boardMapper">
 
-<!-- 페이징처리1 :총게시물수 가져오기 -->
+<!-- notice 읽기(조회) - 페이징처리1 :총게시물수 가져오기 -->
 	<select id="getListCount" resultType="_int"> <!-- resultType,resultMap 무조건 있어야함. 리절셋하고 나서 뭘로 받을지 정해줘야하기에 -->
 		select count(*)
 		from board
@@ -13,7 +13,7 @@
 	</select>
 	
 	
-<!-- 페이징처리2 : 원하는 게시판 번호 조회 -->
+<!-- notice 읽기(조회) - 페이징처리2 : 원하는 게시판 번호 조회 -->
 	<select id="getBoardList" resultMap="boardResultSet">
 		select *
 		from board 
@@ -31,17 +31,35 @@
 		<result column="ADMIN_ID" property="adminId"/>
 	</resultMap>
 
+<!-- notice 쓰기  -->
+	<insert id="insertBoard">
+		insert into board
+		values(seq_bid.nextval,#{boardTitle},#{boardContent},sysdate, default, default, 'Y', 1, default)
+	</insert>
+	
+<!-- notice 수정  -->
+	<update id="updateNotice">
+		update board
+		set board_title = #{boardTitle}, board_content = #{boardContent}
+		where admin_id = #{adminId}
+	</update>
 
+<!-- notice 삭제 -->
+	<update id="deleteNotice">
+		update board
+		set board_status = 'N'
+		where admin_id = #{adminId}
+	</update>
  
  
-<!-- QnA 조회 : 페이징처리1 - 총게시물 --> 
+<!-- QnA 읽기(조회) : 페이징처리1 - 총게시물 --> 
 	<select id="getQnaListCount" resultType="_int"> <!-- resultType,resultMap 무조건 있어야함. 리절셋하고 나서 뭘로 받을지 정해줘야하기에 -->
 		select count(*)
 		from qna
 		where qna_status = 'Y'
 	</select>
 	
-<!-- QnA 조회 : 페이징처리2 - 필요 게시물 --> 
+<!-- QnA 읽기(조회) : 페이징처리2 - 필요 게시물 --> 
 	<select id="getBoardQnaList" resultMap="boardQnaResultSet">
 		select *
 		from qna 
@@ -58,23 +76,32 @@
 		<result column="QNA_ANS_STATUS" property="qnaAnsStatus"/>
 		<result column="EMAIL_ID" property="emailId"/>
 	</resultMap>
- 	
 
 
 <!-- QnA 쓰기 -->
 	<insert id="insertBoardQna"> 
 		insert into qna
-		values(seq_qnaid.nextval, #{qnaTitle}, #{qnaContent}, sysdate, default, default, default, default, default)
+		values(seq_qnaid.nextval, #{qnaTitle}, #{qnaContent}, sysdate, default, default, default, default)
 	</insert>
 	
 <!-- QnA 수정 -->
 	<update id="updateBoardQna">
 		update qna
-		set qna_title = #{qnaTitle}
-		and qna_content = #{qnaContent}
-		where email_id = #{eId}
+		set qna_title = #{qnaTitle}, qna_content = #{qnaContent}
+		
+		where email_id = #{emailId}
 	</update>
  	
+<!-- QnA 삭제 -->
+	<update id="deleteBoardQna">
+		update qna
+		set qna_status = 'N'
+		where email_id = #{emailId}
+	</update>
+
+
+
+
 
 <!-- 게시판 상세보기+ 파일업로드	 -->
 	<update id="addReadCount">

@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="cur"/>
+		<item key="selection" value="selectBoard"/>
 		<list key="findhistory">
+			<item value="selectBoard"/>
+			<item value="notice.bo"/>
 			<item value="cur"/>
 			<item value="cour"/>
 			<item value="integer"/>

@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
 
-<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/boardQna.css">
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/board/boardQna.css">
   
 
 
@@ -103,8 +103,11 @@ pageEncoding="UTF-8"%>
 	                        </div>  
 	                    </ul>
 	                    <div class="QnaToggleOpen_Button">
-	                        <button type="submit" name="page" value="${pi.currentPage}" onclick="location.href='boardQnaUpdateForm.bo?page='+ ${pi.currentPage}">수정</button>
-	                        <button type="submit" name="page" value="${pi.currentPage}" onclick="location.href='boardQnaDeleteForm.bo'">삭제</button>
+	                        <button type="submit" name="page" value="${pi.currentPage}" 
+	                        		onclick="location.href='boardQnaUpdateForm.bo?page='+ ${pi.currentPage}">수정</button>
+	                        <button type="submit" name="page" value="${pi.currentPage}" id="boardQnaDelete"
+	                        		onclick="boardQnaDelete()">삭제</button>
+	                        <%-- <button type="submit" name="page" value="${pi.currentPage}" onclick="location.href='boardQnaDeleteForm.bo'">삭제</button> --%>
 	                    </div><br>																<!-- location.href = 'bdetail.bo?bId=' + bId + "&page=" + ${pi.currentPage}; -->
 	                </div>
 	            </details>  
@@ -178,6 +181,19 @@ pageEncoding="UTF-8"%>
     
     </div>
 
+
+	<script>
+		function boardQnaDelete(){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="boardQnaDeleteForm.bo"
+				/* <c:url var="bdelete" value="bdelete.bo">
+					 <c:param name="bId" value="${ board.boardId }"/>
+					 <c:param name="renameFileName" value="${ board.renameFileName }"/>
+				</c:url> */
+			}
+			
+		}
+	</script>
 
 </body>
 </html>
