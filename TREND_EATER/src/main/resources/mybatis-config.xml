@@ -18,12 +18,14 @@
 		<typeAlias type="com.fpj.trendeater.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.fpj.trendeater.board.model.vo.BoardQnA" alias="BoardQnA"/>
 		<typeAlias type="com.fpj.trendeater.board.model.vo.Reply" alias="Reply"/>
+		<typeAlias type="com.fpj.trendeater.admin.model.vo.Admin" alias="Admin"/>
 	</typeAliases>
 
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/admin-mapper.xml"/>
 	
 	</mappers>
 
