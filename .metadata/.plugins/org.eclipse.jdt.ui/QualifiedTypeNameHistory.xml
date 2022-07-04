@@ -5,6 +5,8 @@
 <fullyQualifiedTypeName name="com.fpj.trendeater.board.model.vo.BoardQnA"/>
 <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
-<fullyQualifiedTypeName name="com.fpj.trendeater.member.model.vo.Member"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="com.fpj.trendeater.admin.model.vo.Admin"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.fpj.trendeater.member.model.vo.Member"/>
 </qualifiedTypeNameHistroy>

@@ -87,7 +87,16 @@ public class AdminController {
        return res;
     }
     
-    
+
+/*************************************** QnA ************************************/
+    // 문의사항 게시판 : 답변 쓰기
+//    @RequestMapping("boardQnaAns.ad")
+//    public String boardQnaAns() {
+//    	
+//    	
+//    	
+//    	
+//    }
     
     
     
